@@ -6,24 +6,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  
   clean_workflow:
-    
     runs-on: ubuntu-latest
-    
+    permissions:
+      actions: write
     env:
       DRY: false
-    
     steps:
-    
-      - name: delete workflow runs
+      - name: delete workflow runs - all ( > 14 days )
         uses: dmvict/clean-workflow-runs@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          save_period: 30
+          save_period: 14
           dry: ${{ env.DRY }}
-
-      - name: delete workflow runs
+      - name: delete workflow runs - status ( > 5 days )
         uses: dmvict/clean-workflow-runs@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
